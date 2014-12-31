@@ -137,6 +137,9 @@ rm -rf $RPM_BUILD_ROOT
 %post	-p /sbin/ldconfig
 %postun	-p /sbin/ldconfig
 
+%post	-n java-libnifalcon -p /sbin/ldconfig
+%postun	-n java-libnifalcon -p /sbin/ldconfig
+
 %files
 %defattr(644,root,root,755)
 %doc ChangeLog.txt README.asciidoc linux/40-novint-falcon-udev.rules license/{LICENSE_GMTL_ADDENDUM.txt,LICENSE_LIBNIF_BSD.txt,LICENSE_NOVINT.txt}
