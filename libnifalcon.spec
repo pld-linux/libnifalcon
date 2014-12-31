@@ -111,7 +111,8 @@ Interfejs Pythona do biblioteki libnifalcon.
 install -d build
 cd build
 %cmake .. \
-	%{?with_swig:-DBUILD_SWIG_BINDINGS=ON}
+	%{?with_swig:-DBUILD_SWIG_BINDINGS=ON} \
+	-DLIBRARY_INSTALL_DIR:PATH=%{_libdir}
 
 %{__make}
 
