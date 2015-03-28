@@ -2,12 +2,12 @@
 # Conditional build:
 %bcond_without	apidocs		# do not build and package API docs
 %bcond_without	swig		# SWIG based Java and Python bindings
-#
+
 Summary:	Open Source Driver for the Novint Falcon Haptic Controller
 Summary(pl.UTF-8):	Sterownik z otwartymi źródłami dla kontrolerów haptycznych Novint Falcon
 Name:		libnifalcon
 Version:	1.0.2
-Release:	2
+Release:	3
 License:	BSD
 Group:		Libraries
 # for new releases see https://github.com/qdot/libnifalcon
@@ -34,7 +34,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 libnifalcon is a development library for the NovInt Falcon haptic
 controller, and is an open source, crossplatform alternative to
-NovInt's SDK. 
+NovInt's SDK.
 
 %description -l pl.UTF-8
 libnifalcon to biblioteka programistyczna dla kontrolerów haptycznych
@@ -70,6 +70,9 @@ Statyczna biblioteka libnifalcon.
 Summary:	libnifalcon API documentation
 Summary(pl.UTF-8):	Dokumentacja API biblioteki libnifalcon
 Group:		Documentation
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
 
 %description apidocs
 API documentation for libnifalcon library.
@@ -118,14 +121,13 @@ cd build
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
 %{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
 
 %if %{with swig}
 install -d $RPM_BUILD_ROOT%{py_sitedir}
-install build/lib/libJNIFalcon.so $RPM_BUILD_ROOT%{_libdir}
-install build/lib/_pynifalcon.so $RPM_BUILD_ROOT%{py_sitedir}
+install -p build/lib/libJNIFalcon.so $RPM_BUILD_ROOT%{_libdir}
+install -p build/lib/_pynifalcon.so $RPM_BUILD_ROOT%{py_sitedir}
 cp -p build/lang/swig/pynifalcon.py $RPM_BUILD_ROOT%{py_sitedir}
 %py_comp $RPM_BUILD_ROOT%{py_sitedir}
 %py_ocomp $RPM_BUILD_ROOT%{py_sitedir}
