@@ -7,7 +7,7 @@ Summary:	Open Source Driver for the Novint Falcon Haptic Controller
 Summary(pl.UTF-8):	Sterownik z otwartymi źródłami dla kontrolerów haptycznych Novint Falcon
 Name:		libnifalcon
 Version:	1.0.2
-Release:	9
+Release:	10
 License:	BSD
 Group:		Libraries
 # for new releases see https://github.com/qdot/libnifalcon
