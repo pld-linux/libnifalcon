@@ -6,18 +6,19 @@
 Summary:	Open Source Driver for the Novint Falcon Haptic Controller
 Summary(pl.UTF-8):	Sterownik z otwartymi źródłami dla kontrolerów haptycznych Novint Falcon
 Name:		libnifalcon
-Version:	1.0.2
-Release:	12
+Version:	1.1
+Release:	1
 License:	BSD
 Group:		Libraries
-# for new releases see https://github.com/qdot/libnifalcon
-Source0:	http://downloads.sourceforge.net/libnifalcon/%{name}-%{version}.tar.gz
-# Source0-md5:	d2d226dad44ad2c98343cca5523e9f16
-Patch0:		%{name}-boost.patch
+#Source0Download: https://github.com/qdot/libnifalcon/releases
+Source0:	https://github.com/qdot/libnifalcon/archive/%{version}/%{name}-%{version}.tar.gz
+# Source0-md5:	3723b16749ddfa13fb6ddd1a8a95d58c
+Patch0:		%{name}-link.patch
 URL:		https://github.com/qdot/libnifalcon
 BuildRequires:	boost-devel
 BuildRequires:	cmake >= 2.6.0
 %{?with_apidocs:BuildRequires:	doxygen}
+BuildRequires:	libstdc++-devel
 BuildRequires:	libusb-devel >= 1.0
 BuildRequires:	pkgconfig
 BuildRequires:	xorg-lib-libX11-devel
@@ -119,8 +120,14 @@ cd build
 
 %{__make} -j1
 
+%if %{with apidocs}
+cd ../doc
+doxygen
+%endif
+
 %install
 rm -rf $RPM_BUILD_ROOT
+
 %{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
 
@@ -154,13 +161,13 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/findfalcons_multi
 %attr(755,root,root) %{_libdir}/libnifalcon.so.*.*.*
 %attr(755,root,root) %{_libdir}/libnifalcon_cli_base.so.*.*.*
-%attr(755,root,root) %{_libdir}/libnifalcon_device_boost_thread.so.*.*.*
+%attr(755,root,root) %{_libdir}/libnifalcon_device_thread.so.*.*.*
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libnifalcon.so
 %attr(755,root,root) %{_libdir}/libnifalcon_cli_base.so
-%attr(755,root,root) %{_libdir}/libnifalcon_device_boost_thread.so
+%attr(755,root,root) %{_libdir}/libnifalcon_device_thread.so
 %{_includedir}/falcon
 %{_pkgconfigdir}/libnifalcon.pc
 
@@ -168,12 +175,12 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_libdir}/libnifalcon.a
 %{_libdir}/libnifalcon_cli_base.a
-%{_libdir}/libnifalcon_device_boost_thread.a
+%{_libdir}/libnifalcon_device_thread.a
 
 %if %{with apidocs}
 %files apidocs
 %defattr(644,root,root,755)
-%doc doc/html/*
+%doc doc/html/* doc/*.asciidoc
 %endif
 
 %if %{with swig}

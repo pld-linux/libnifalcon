@@ -1,0 +1,11 @@
+--- libnifalcon-1.1/src/util/CMakeLists.txt.orig	2016-07-04 23:07:21.000000000 +0200
++++ libnifalcon-1.1/src/util/CMakeLists.txt	2019-04-27 09:37:13.738152081 +0200
+@@ -29,7 +29,7 @@
+     NAME nifalcon_device_thread
+     SOURCES "${SRCS}"
+     CXX_FLAGS FALSE
+-    LINK_LIBS "${CPP_LINK_LIBS}"
++    LINK_LIBS ${CPP_LINK_LIBS} -lpthread
+     LINK_FLAGS FALSE
+     DEPENDS nifalcon
+     SHOULD_INSTALL TRUE
