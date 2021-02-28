@@ -71,9 +71,7 @@ Statyczna biblioteka libnifalcon.
 Summary:	libnifalcon API documentation
 Summary(pl.UTF-8):	Dokumentacja API biblioteki libnifalcon
 Group:		Documentation
-%if "%{_rpmversion}" >= "5"
 BuildArch:	noarch
-%endif
 
 %description apidocs
 API documentation for libnifalcon library.
